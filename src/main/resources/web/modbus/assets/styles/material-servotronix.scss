@@ -1,0 +1,45 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$material-servotronix-primary: mat-palette($mat-teal, 600, 900, 100);
+$material-servotronix-accent:  mat-palette($mat-amber, A200, A100, A400);
+$material-servotronix-warn:    mat-palette($mat-red);
+
+$servotronix-theme: mat-light-theme($material-servotronix-primary, $material-servotronix-accent, $material-servotronix-warn);
+
+$material-black: rgba(0,0,0,0.87);
+$material-semi-black: rgba(0,0,0,0.54);
+
+@include angular-material-theme($servotronix-theme);
+
+.primary, main-menu li:hover, main-menu li.selected {
+  color: mat-color($material-servotronix-primary, 600);
+}
+.accent {
+  color: mat-color($material-servotronix-accent, A200);
+}
+.primary-light {
+  color: mat-color($material-servotronix-primary, 100);
+}
+.primary-bg-dark {
+  background-color: mat-color($material-servotronix-primary, 900);
+  color: #fff;
+}
+.primary-bg, .mat-button-toggle-checked {
+  background-color: mat-color($material-servotronix-primary, 600);
+  color: #fff;
+}
+.warn-bg {
+  background-color: mat-color($material-servotronix-warn);
+  color: #fff;
+}
+.warn {
+  color: mat-color($material-servotronix-warn);
+}
+.mat-title-color {
+  color: $material-black;
+}
+.mat-subtitle-color {
+  color: $material-semi-black;
+}

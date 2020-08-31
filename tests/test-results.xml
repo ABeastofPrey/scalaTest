@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="7.856" tests="13" failures="8">
+  <testsuite name="Root Suite" timestamp="2019-11-27T12:07:55" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="softMC Web Server test" timestamp="2019-11-27T12:07:55" tests="0" file="c:\Omri\softMC%20Web%20Server\tests\top.js" failures="0" time="0">
+  </testsuite>
+  <testsuite name="Factory Restore" timestamp="2019-11-27T12:07:55" tests="1" file="c:\Omri\softMC%20Web%20Server\tests\top.js" failures="1" time="0.283">
+    <testcase name="softMC Web Server test Factory Restore 4462 Should restore the webserver to the Factory state" time="0.283" classname="4462 Should restore the webserver to the Factory state">
+      <failure message="All configured authentication methods failed" type="Error"><![CDATA[Error: All configured authentication methods failed
+    at doNextAuth (node_modules\ssh2\lib\client.js:413:17)
+    at tryNextAuth (node_modules\ssh2\lib\client.js:484:5)
+    at SSH2Stream.onUSERAUTH_FAILURE (node_modules\ssh2\lib\client.js:597:5)
+    at parsePacket (node_modules\ssh2-streams\lib\ssh.js:3779:10)
+    at SSH2Stream._transform (node_modules\ssh2-streams\lib\ssh.js:694:13)
+    at SSH2Stream.Transform._read (_stream_transform.js:189:10)
+    at SSH2Stream._read (node_modules\ssh2-streams\lib\ssh.js:253:15)
+    at SSH2Stream.Transform._write (_stream_transform.js:177:12)
+    at doWrite (_stream_writable.js:417:12)
+    at writeOrBuffer (_stream_writable.js:401:5)
+    at SSH2Stream.Writable.write (_stream_writable.js:301:11)
+    at Socket.ondata (_stream_readable.js:696:22)
+    at addChunk (_stream_readable.js:290:12)
+    at readableAddChunk (_stream_readable.js:271:11)
+    at Socket.Readable.push (_stream_readable.js:226:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:166:17)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="4494-Profile Pictures" timestamp="2019-11-27T12:07:56" tests="6" file="c:\Omri\softMC%20Web%20Server\tests\top.js" failures="4" time="3.3040000000000003">
+    <testcase name="softMC Web Server test 4494-Profile Pictures 4494-Admins should be able to get the pictures of all users" time="1.972" classname="4494-Admins should be able to get the pictures of all users">
+      <failure message="Request failed with status code 403" type="Error"><![CDATA[Error: Request failed with status code 403
+    at createError (node_modules\axios\lib\core\createError.js:16:15)
+    at settle (node_modules\axios\lib\core\settle.js:17:12)
+    at IncomingMessage.handleStreamEnd (node_modules\axios\lib\adapters\http.js:237:11)
+    at endReadableNT (_stream_readable.js:1137:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:9)]]></failure>
+    </testcase>
+    <testcase name="softMC Web Server test 4494-Profile Pictures 4496- Non admin users should only get their own photo" time="1.316" classname="4496- Non admin users should only get their own photo">
+    </testcase>
+    <testcase name="softMC Web Server test 4494-Profile Pictures 4497- Non-users should not be able to get any profile picture" time="0.016" classname="4497- Non-users should not be able to get any profile picture">
+    </testcase>
+    <testcase name="softMC Web Server test 4494-Profile Pictures 4499- Users should be able to UPLOAD their own profile picture" time="0" classname="4499- Users should be able to UPLOAD their own profile picture">
+      <failure message="ENOENT: no such file or directory, stat &apos;c:\Omri\softMC%20Web%20Server\tests\Smiley.jpg&apos;" type="Error"><![CDATA[Error: ENOENT: no such file or directory, stat 'c:\Omri\softMC%20Web%20Server\tests\Smiley.jpg']]></failure>
+    </testcase>
+    <testcase name="softMC Web Server test 4494-Profile Pictures 4500-Users should not be able to upload someone else&apos;s profile pic" time="0" classname="4500-Users should not be able to upload someone else&apos;s profile pic">
+      <failure message="ENOENT: no such file or directory, stat &apos;c:\Omri\softMC%20Web%20Server\tests\Smiley.jpg&apos;" type="Error"><![CDATA[Error: ENOENT: no such file or directory, stat 'c:\Omri\softMC%20Web%20Server\tests\Smiley.jpg']]></failure>
+    </testcase>
+    <testcase name="softMC Web Server test 4494-Profile Pictures 4501- Admin/Super users should NOT be able to change their profile pic" time="0" classname="4501- Admin/Super users should NOT be able to change their profile pic">
+      <failure message="ENOENT: no such file or directory, stat &apos;c:\Omri\softMC%20Web%20Server\tests\Smiley.jpg&apos;" type="Error"><![CDATA[Error: ENOENT: no such file or directory, stat 'c:\Omri\softMC%20Web%20Server\tests\Smiley.jpg']]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="4487- Get user list" timestamp="2019-11-27T12:07:59" tests="3" file="c:\Omri\softMC%20Web%20Server\tests\top.js" failures="1" time="1.0250000000000001">
+    <testcase name="softMC Web Server test 4487- Get user list 4488- Admin/Super users should get an array with all users" time="0.519" classname="4488- Admin/Super users should get an array with all users">
+      <failure message="false == true" type="AssertionError"><![CDATA[AssertionError [ERR_ASSERTION]: false == true
+    at Context.<anonymous> (UserManagement\GetUserList.js:50:16)
+    at processTicksAndRejections (internal/process/task_queues.js:89:5)]]></failure>
+    </testcase>
+    <testcase name="softMC Web Server test 4487- Get user list 4489- Normal users should only get a list with their own user" time="0.46" classname="4489- Normal users should only get a list with their own user">
+    </testcase>
+    <testcase name="softMC Web Server test 4487- Get user list 4490- Non users should not get the list of users" time="0.046" classname="4490- Non users should not get the list of users">
+    </testcase>
+  </testsuite>
+  <testsuite name="4481- Remember me" timestamp="2019-11-27T12:08:00" tests="1" file="c:\Omri\softMC%20Web%20Server\tests\top.js" failures="1" time="0.49">
+    <testcase name="softMC Web Server test 4481- Remember me 4482- Users should be able to retrieve their information based on their token" time="0.49" classname="4482- Users should be able to retrieve their information based on their token">
+      <failure message="false == true" type="AssertionError"><![CDATA[AssertionError [ERR_ASSERTION]: false == true
+    at Context.<anonymous> (UserManagement\RememberMe.js:25:16)
+    at processTicksAndRejections (internal/process/task_queues.js:89:5)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="4455- Delete" timestamp="2019-11-27T12:08:01" tests="2" file="c:\Omri\softMC%20Web%20Server\tests\top.js" failures="1" time="2.754">
+    <testcase name="softMC Web Server test 4455- Delete 4473- Admin users should be able to delete users" time="1" classname="4473- Admin users should be able to delete users">
+      <failure message="false == true" type="AssertionError"><![CDATA[AssertionError [ERR_ASSERTION]: false == true
+    at Context.<anonymous> (UserManagement\Delete.js:75:14)
+    at processTicksAndRejections (internal/process/task_queues.js:89:5)]]></failure>
+    </testcase>
+    <testcase name="softMC Web Server test 4455- Delete Non-admin users should NOT be able to delete users" time="1.754" classname="Non-admin users should NOT be able to delete users">
+    </testcase>
+  </testsuite>
+</testsuites>

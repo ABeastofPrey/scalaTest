@@ -1,0 +1,106 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  name: "Omri's build devices"
+
+variables:
+  MCIP: '10.4.20.86'
+  VER: '3.5.4'
+
+steps:
+  - task: Maven@3
+    displayName: 'Build the Web Server Java file'
+    inputs:
+      mavenPomFile: 'pom.xml'
+      publishJUnitResults: false
+      javaHomeOption: 'JDKVersion'
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+      sonarQubeRunAnalysis: false
+  - task: Bash@3
+    displayName: 'Move the web server into production folder'
+    inputs:
+      targetType: 'inline'
+      script: |
+        mv target/MCWebServer-3.2.3-jar-with-dependencies.jar production/TPWebServer.jar
+        rm -fr /home/$USER/tmp
+        mkdir /home/$USER/tmp
+
+  - task: Bash@3
+    displayName: 'Create the RPM file'
+    inputs:
+      filePath: 'production/genipkg_java_files.sh'
+      arguments: '302 $(VER)'
+      workingDirectory: 'production'
+
+  - task: Bash@3
+    displayName: 'Copy the RPM to MC $(MCIP)'
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo "INSTALLING SSHPASS IF NEEDED..."
+        echo q | sudo -S apt-get update
+        echo q | sudo -S apt-get install sshpass
+        echo "ADDING MC $(MCIP) TO KNOWN HOSTS LISTS..."
+        ssh-keyscan -H $(MCIP) >> ~/.ssh/known_hosts
+        FILE_NAME="/home/$USER/tmp/java-files-302-$(VER)-2.solidrun_imx6.rpm"
+        echo COPYING FILE $FILE_NAME TO MC $(MCIP) ...
+        sshpass -p "mc" scp $FILE_NAME mc@$(MCIP):/FFS0/SSMC/
+        echo DONE!
+
+  - task: Bash@3
+    displayName: 'REBOOTING MC TO INSTALL WEB SERVER'
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo Connecting to $(MCIP) ...
+        sshpass -p "mc" ssh mc@$(MCIP) -o StrictHostKeyChecking=no << EOF
+        sudo reboot
+        EOF
+        sleep 1m
+        printf "\n%s\n" "waiting for MC $(MCIP) to go back up again..."
+        ((count = 100))                            # Maximum number to try.
+        while [[ $count -ne 0 ]] ; do
+            nc -vz $(MCIP) 1207                      # Try once.
+            rc=$?
+            if [[ $rc -eq 0 ]] ; then
+                ((count = 1))                      # If okay, flag to exit loop.
+            fi
+            sleep 5
+            ((count = count - 1))                  # So we don't go forever.
+        done
+
+        if [[ $rc -eq 0 ]] ; then                  # Make final determination.
+            printf "\n%s\n"  "MC is back online!"
+        else
+            echo `Timeout.`
+        fi
+        
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: 'tests/'
+  
+  - task: Bash@3
+    displayName: 'Run Mocha tests'
+    timeoutInMinutes: 5
+    inputs:
+      targetType: 'inline'
+      failOnStderr: false
+      script: |
+        cd $(System.DefaultWorkingDirectory)/tests/
+        node_modules/mocha/bin/mocha top.js --reporter mocha-junit-reporter
+        exit 0
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: 'test-results.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)/tests/'
+      testRunTitle: 'softMC Web Server tests'

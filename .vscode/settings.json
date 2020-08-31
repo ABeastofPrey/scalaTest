@@ -1,0 +1,12 @@
+{
+  "java.configuration.updateBuildConfiguration": "disabled",
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  },
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  }
+}

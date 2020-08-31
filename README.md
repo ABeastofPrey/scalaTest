@@ -1,20 +1,16 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+This is the softMC Web Server, designed to provide APIs and HTTP server for Web applications running in the Servotronix softMC controller.
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+1. You should set up your development environment (i.e: VSCode or Netbeans) to work with JDK1.8.0.
+2. You should have Maven installed
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+# Build
+1.	Make sure to update MCDEFS.JAVA with the new version code (in VER).
+2.	Make sure to update POM.XML with the new version code (in <version> tag).
+3.	Run maven clean and maven install commands.
+4.	When build is done, see /target/MCWebServer-x.x.x-jar-with-dependencies.JAR
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+# RPM File
+1.	Copy and rename the final JAR file into production as TPWebServer.jar
+2.	Execute genipkg_java_files.sh [302/703] [server_version_num] (i.e: bash genipkg_java_files.sh 302 3.6.0).
