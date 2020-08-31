@@ -14,3 +14,8 @@ This is the softMC Web Server, designed to provide APIs and HTTP server for Web 
 # RPM File
 1.	Copy and rename the final JAR file into production as TPWebServer.jar
 2.	Execute genipkg_java_files.sh [302/703] [server_version_num] (i.e: bash genipkg_java_files.sh 302 3.6.0).
+
+# Test
+## Warning: SERVER TESTS WILL REMOVE SSMC FOLDER CONTENTS !!!
+1. Edit the tested MC's IP in common.js
+2. Execute: node top.js
